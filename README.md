@@ -7,19 +7,17 @@ Este repositório contém a solução completa para o teste técnico para Analyt
 ## 🏗️ Estrutura do Repositório
 
 ```
-📦 hotmart-analytics-engineer-challenge/
+📦 case-ae-hotmart/
 ├── 📄 README.md                          # Este arquivo
 ├── 📁 docs/                              # Documentação técnica
 │   ├── 01_business_context.md            # Contexto de negócio Hotmart
 │   ├── 02_architectural_decisions.md     # ADRs detalhados
 │   ├── 03_data_model.md                  # Modelagem e diagramas
 │   └── 04_testing_strategy.md            # Estratégia de testes
-├── 📁 exercise_1_sql/                    # Exercício 1: SQL Queries
-│   ├── README.md
-│   ├── query_1_top_50_producers.sql
-│   ├── query_2_top_2_products_per_producer.sql
-│   └── explanations.md
-├── 📁 exercise_2_pyspark_etl/            # Exercício 2: ETL PySpark
+├── 📁 ex_1/                              # Exercício 1:
+│   ├── query_1.sql
+│   ├── query_2.sql
+├── 📁 ex_2/                              # Exercício 2:
 │   ├── README.md
 │   ├── src/
 │   │   ├── etl_main.py                   # Pipeline principal
@@ -54,16 +52,16 @@ Responder duas perguntas de negócio utilizando SQL sobre o modelo transacional 
 ### Decisões Técnicas
 
 #### Query 1: Top 50 Produtores
-- ✅ Filtro de ano extraído com `EXTRACT(YEAR FROM ...)` para clareza
-- ✅ Apenas compras com `release_date IS NOT NULL` (compras pagas)
-- ✅ `ORDER BY` com `LIMIT 50` para performance
-- ✅ Agregação direta sem CTEs desnecessárias
+- Filtro de ano extraído com `BETWEEN` para performance
+- Apenas compras com `release_date IS NOT NULL` (compras pagas)
+- `ORDER BY` com `LIMIT 50` para performance
+- Agregação direta sem CTEs desnecessárias
 
 #### Query 2: Top 2 Produtos por Produtor
-- ✅ `ROW_NUMBER()` com `PARTITION BY producer_id` para ranking
-- ✅ CTE para separar lógica de cálculo e filtragem
-- ✅ Join entre `purchase` e `product_item` considerando relacionamento 1:N
-- ✅ Tratamento de empates (ROW_NUMBER vs RANK)
+- `ROW_NUMBER()` com `PARTITION BY producer_id` para ranking
+- CTE para separar lógica de cálculo e filtragem
+- Join entre `purchase` e `product_item` considerando relacionamento 1:N
+- Tratamento de empates (ROW_NUMBER vs RANK)
 
 📂 **Localização:** [`exercise_1_sql/`](./exercise_1_sql/)
 
