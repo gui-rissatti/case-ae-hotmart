@@ -310,9 +310,3 @@ WHERE snapshot_date = (SELECT MAX(snapshot_date) FROM consolidated_purchase_dail
 | Particionamento por snapshot_date | Isolamento temporal; reprocessamento eficiente | Consultas temporais complexas (JOIN com múltiplas partições) | Requisito de rastreabilidade diária e D-1 |
 | PySpark/Glue (não SQL puro) | Escalabilidade; transformações complexas; integração AWS | Curva de aprendizado; custo de infra Spark | Volume de dados (3 tabelas fonte) e requisito de forward fill justificam Spark |
 
----
-
-## Autor
-
-**Guilherme Rissatti Malheiros**  
-Analytics Engineer - Desafio Técnico Hotmart
