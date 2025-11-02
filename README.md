@@ -4,6 +4,28 @@
 
 Este repositório contém a solução completa para o teste técnico para Analytics Engineer enviado por e-mail em 31/10
 
+## ✅ Status da Entrega
+
+| Exercício | Status | Arquivo Principal | Documentação |
+|-----------|--------|------------------|--------------|
+| **Exercício 1** | ✅ Completo | `ex_1/query_1.sql`, `ex_1/query_2.sql` | `ex_1/README.md` |
+| **Exercício 2** | ✅ **REFATORADO** | `ex_2/etl_purchase_history.py` | `ex_2/README_SOLUTION.md` |
+
+### ⚡ Quick Start - Exercício 2
+
+```bash
+# 1. Instalar dependências
+pip install pyspark
+
+# 2. Executar suite de testes
+cd ex_2
+.\run_tests.ps1
+
+# OU executar manualmente
+python etl_purchase_history.py --create-sample-data --process-date 2023-01-20
+python etl_purchase_history.py --query-gmv
+```
+
 ## 🏗️ Estrutura do Repositório
 
 ```

@@ -1,5 +1,22 @@
 # Exercício 2: ETL PySpark com Modelagem Histórica
 
+## 🎯 Solução Implementada
+
+**Arquivo principal**: `etl_purchase_history.py` (ÚNICO script Python conforme requisito)
+
+**Documentação completa**: Ver `README_SOLUTION.md`
+
+**Como executar**:
+```bash
+# 1. Criar dados de exemplo e processar
+python etl_purchase_history.py --create-sample-data --process-date 2023-01-20
+
+# 2. Consultar GMV com time travel
+python etl_purchase_history.py --query-gmv --as-of-date 2023-01-31
+```
+
+---
+
 ## 📌 Contexto
 
 Este exercício é **significativamente mais complexo** que o primeiro, pois trabalha com:
