@@ -40,10 +40,7 @@ Este repositório contém a solução completa para o teste técnico para Analyt
 
 ---
 
-## 🎯 Exercício 1: SQL Queries
-
-### Objetivo
-Responder duas perguntas de negócio utilizando SQL sobre o modelo transacional da Hotmart.
+## 🎯 Exercício 1
 
 ### Perguntas
 1. **Quais são os 50 maiores produtores em faturamento de 2021?**
@@ -63,7 +60,7 @@ Responder duas perguntas de negócio utilizando SQL sobre o modelo transacional 
 - Join entre `purchase` e `product_item` considerando relacionamento 1:N
 - Tratamento de empates (ROW_NUMBER vs RANK)
 
-📂 **Localização:** [`exercise_1_sql/`](./exercise_1_sql/)
+📂 **Localização:** [`exercise_1_sql/`](./query_1/)
 
 ---
 
@@ -218,58 +215,6 @@ WHERE order_date BETWEEN '2023-01-01' AND '2023-01-31'
 
 📂 **Localização:** [`exercise_2_pyspark_etl/`](./exercise_2_pyspark_etl/)
 
----
-
-## 🛠️ Setup e Execução
-
-### Pré-requisitos
-
-```bash
-# Python 3.8+
-# PySpark 3.3+
-# Java 8 ou 11
-```
-
-### Instalação
-
-```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/hotmart-analytics-engineer-challenge.git
-cd hotmart-analytics-engineer-challenge
-
-# Instale as dependências
-pip install -r requirements.txt
-```
-
-### Executar Exercício 1
-
-```bash
-# As queries podem ser executadas diretamente no seu SGBD SQL
-# Exemplos usando DuckDB:
-cd exercise_1_sql
-duckdb hotmart.db < query_1_top_50_producers.sql
-```
-
-### Executar Exercício 2
-
-```bash
-cd exercise_2_pyspark_etl
-
-# Executar ETL completo
-python src/etl_main.py --process-date 2023-01-22
-
-# Executar consulta de GMV
-python src/etl_main.py --query gmv-daily --start-date 2023-01-01 --end-date 2023-01-31
-```
-
-### Executar Testes
-
-```bash
-cd exercise_2_pyspark_etl
-pytest tests/ -v
-```
-
----
 
 ## 📊 Exemplos de Saída
 
@@ -324,42 +269,6 @@ pytest tests/ -v
 | Particionamento por transaction_date | Performance em D-1, fácil reprocessamento | Queries cross-partition mais lentas | Padrão de acesso principal é D-1 |
 | Forward Fill | Consistência de dados, evita NULL explosion | Possível propagação de erros | Requisito explícito do teste |
 
-### 5. **Considerações de Produção**
-
-```python
-# Exemplo de código production-ready
-class PurchaseHistoryETL:
-    """
-    ETL para construção da tabela histórica de compras.
-    
-    Design Principles:
-    - Idempotente: pode ser reprocessado sem efeitos colaterais
-    - Determinístico: mesmo input sempre produz mesmo output
-    - Auditável: mantém lineage e metadados
-    - Testável: lógica isolada em funções puras
-    """
-    
-    def __init__(self, spark, config):
-        self.spark = spark
-        self.config = config
-        self.logger = setup_logger(__name__)
-        self.metrics = MetricsCollector()
-    
-    def run(self, process_date):
-        """
-        Executa o pipeline ETL para uma data específica.
-        
-        Args:
-            process_date: Data a ser processada (formato: YYYY-MM-DD)
-        
-        Returns:
-            ExecutionResult com métricas e status
-        """
-        with self.metrics.timer("etl_duration"):
-            # ... implementação
-            pass
-```
-
 ---
 
 ## 📚 Documentação Adicional
@@ -391,21 +300,3 @@ class PurchaseHistoryETL:
 - **Visão de Produto**: Solução pensada para auditoria, compliance e evolução
 
 ---
-
-## 📧 Contato
-
-Para dúvidas sobre este projeto:
-
-- **Email**: [seu-email@example.com]
-- **LinkedIn**: [seu-perfil]
-- **GitHub**: [seu-usuario]
-
----
-
-## 📄 Licença
-
-Este projeto foi desenvolvido como parte de um processo seletivo e não possui licença de uso comercial.
-
----
-
-**Desenvolvido com ⚡ por [Seu Nome] | Novembro 2025**
