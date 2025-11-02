@@ -9,6 +9,7 @@ PARTITIONED BY (transaction_date)
 STORED AS PARQUET
 LOCATION 's3://bucket/path/fact_historic_gmv/';
 
+-------------------------------------------------------
 /* Exemplo de query para gerar GMV com time travel */
 
 SELECT transaction_date, subsidiaria, SUM(valor_gmv) AS gmv_dia
