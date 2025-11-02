@@ -1,82 +1,22 @@
-/*
-================================================================================
-QUERY 1: TOP 50 PRODUTORES POR FATURAMENTO EM 2021
-================================================================================
+--QUAIS SÃO OS 50 MAIORES PRODUTORES EM FATURAMENTO ($) DE 2021?
 
-OBJETIVO:
-  Identificar os 50 produtores que mais faturaram em 2021, considerando apenas
-  compras pagas (release_date IS NOT NULL).
-
-DEFINIÇÕES:
-  - Faturamento (GMV): Valor bruto da compra (purchase_value)
-  - Compra Paga: release_date IS NOT NULL
-  - Ano 2021: EXTRACT(YEAR FROM order_date) = 2021
-
-DECISÕES TÉCNICAS:
-  1. Filtro de Pagamento: release_date IS NOT NULL
-     → Garante que apenas compras concluídas sejam consideradas
-  
-  2. Extração de Ano: EXTRACT(YEAR FROM order_date) = 2021
-     → Padrão SQL ANSI, mais portável entre SGBDs
-     → Alternativa: order_date BETWEEN '2021-01-01' AND '2021-12-31'
-  
-  3. Agregação Direta: Sem CTEs desnecessárias
-     → Princípio KISS (Keep It Simple, Stupid)
-     → Query simples não precisa de abstrações extras
-  
-  4. Ordenação: ORDER BY total_revenue DESC
-     → Garante que maiores valores apareçam primeiro
-  
-  5. Limite: LIMIT 50
-     → Exatamente os 50 maiores produtores
-
-CAMPOS RETORNADOS:
-  - producer_id: Identificador do produtor
-  - total_revenue: Faturamento total em 2021
-  - num_purchases: Número de compras (métrica adicional de contexto)
-  - avg_ticket: Ticket médio (opcional, para análise)
-
-OBSERVAÇÕES:
-  - Produtores sem vendas pagas em 2021 não aparecerão
-  - Compras com release_date NULL são excluídas (não geram faturamento)
-  - Em caso de empate no 50º lugar, apenas um será retornado (comportamento LIMIT)
-
-PERFORMANCE:
-  - Índices recomendados:
-    * (order_date, release_date) - Para filtros rápidos
-    * (producer_id) - Para agregação eficiente
-  - Estimativa: ~100ms para 1M registros com índices adequados
-
-EXEMPLO DE USO:
-  -- Executar diretamente no SGBD
-  psql -d hotmart -f query_1_top_50_producers.sql
-  
-  -- Ou em DuckDB
-  duckdb hotmart.db < query_1_top_50_producers.sql
-
-================================================================================
-*/
-
-SELECT 
-    producer_id,
-    SUM(purchase_value) AS total_revenue,
-    COUNT(*) AS num_purchases,
-    ROUND(AVG(purchase_value), 2) AS avg_ticket
-FROM 
-    purchase
-WHERE 
-    -- Filtro 1: Apenas ano de 2021
-    -- Justificativa: Requisito explícito do exercício
-    EXTRACT(YEAR FROM order_date) = 2021
-    
-    -- Filtro 2: Apenas compras pagas
-    -- Justificativa: "Se a compra não foi paga, a empresa não tem faturamento"
-    AND release_date IS NOT NULL
-GROUP BY 
-    producer_id
-ORDER BY 
-    total_revenue DESC
+SELECT
+    a.producer_id,
+    sum(b.purchase_value) AS faturamento
+FROM purchase a
+    LEFT JOIN product_item b
+        ON a.prod_item_id = b.prod_item_id
+WHERE 1=1
+    AND order_date BETWEEN date('2021-01-01') AND date('2021-12-31')
+      -- alternativa: EXTRACT(YEAR FROM order_date) = 2021 - desempate por performance (usar BETWEEN pode aproveitar índices B-Tree)
+    AND release_date is not null
+        -- considera apenas compras pagas (com release_date preenchido)
+GROUP BY 1
+    -- agrupa por produtor (producer_id)
+ORDER BY 2 DESC
+    -- ordena do maior para o menor faturamento
 LIMIT 50;
+    -- garante que apenas os 50 maiores produtores sejam retornados
 
 
 /*
