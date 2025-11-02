@@ -1,18 +1,4 @@
-# 📋 SUMÁRIO EXECUTIVO - Teste Técnico Analytics Engineer Sênior
-
----
-
-## ✅ STATUS DO PROJETO
-
-**Projeto:** Desafio Técnico - Analytics Engineer Sênior | Hotmart  
-**Autor:** Guilherme Rissatti Malheiros  
-**Data:** 03/11/25
-
----
-
-## 🎯 RESUMO DOS ENTREGÁVEIS
-
-### ✅ Exercício 1: SQL Queries (CONCLUÍDO)
+### Exercício 1: SQL Queries
 
 | Item | Status | Localização |
 |------|--------|-------------|
@@ -22,7 +8,7 @@
 | Comentários detalhados | ✅ | Dentro de cada query |
 ---
 
-### ✅ Exercício 2: ETL PySpark (CONCLUÍDO)
+### Exercício 2: ETL PySpark
 
 | Item | Status | Localização |
 |------|--------|-------------|
